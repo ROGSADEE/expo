@@ -13,9 +13,9 @@ import type {
 /**
  * Controls a running position watcher. Use `watchPosition()` to create one.
  *
- * On Android, the watcher releases its system request while the app is in the background and
- * resumes when it returns, unless a location foreground service is running. No error is emitted
- * for the gap.
+ * On Android, the watcher releases its system request while the app is in the background, unless a
+ * location foreground service is running. It requests positions again when the app returns, and it
+ * emits no error for the gap.
  *
  * See [Show live position on a screen](#show-live-position-on-a-screen).
  */
@@ -44,8 +44,9 @@ export class PositionWatchHandle {
    *
    * @return `false` when the provider rejects the request right away. Later failures, including
    *   every failure on iOS and with Google Play services, arrive through `onError`.
-   *   `true` means no failure occurred, not that the watcher is subscribed: on Android it also
-   *   returns `true` when nothing was attempted, for example while the app is in the background.
+   *   `true` means that no failure occurred, not that the watcher is subscribed. On Android, it
+   *   also returns `true` when the watcher makes no request, for example while the app is in the
+   *   background.
    * @throws After `dispose()`, like every other call on a disposed handle.
    */
   resume(): boolean {
@@ -85,9 +86,9 @@ export class PositionWatchHandle {
    * It does not resume a paused watcher.
    *
    * @return `false` when the provider rejects the request right away. Later failures arrive through
-   *   `onError`. `true` means no failure occurred, not that the watcher is subscribed: on Android it
-   *   also returns `true` when nothing was attempted, for example while the app is in the
-   *   background.
+   *   `onError`. `true` means that no failure occurred, not that the watcher is subscribed. On
+   *   Android, it also returns `true` when the watcher makes no request, for example while the app
+   *   is in the background.
    */
   restart(): boolean {
     return this.nativeHandle.restart();
@@ -138,7 +139,7 @@ export class PositionWatchHandle {
  *
  * @param options The profile and the callbacks for positions and errors.
  * @return The handle for controlling the watcher.
- * @throws When the foreground permission is not granted, when location services are off, or
+ * @throws When the foreground permission is not granted, when location services are off (iOS), or
  * when the selected provider cannot watch the position (Android).
  * @example
  * ```ts
