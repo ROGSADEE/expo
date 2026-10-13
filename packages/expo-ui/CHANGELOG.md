@@ -1,5 +1,11 @@
 # Changelog
 
+## 58.0.17
+
+### Patch Changes
+
+- [Android] Bump Jetpack Compose UI and Foundation to 1.12.1 and Material3 to 1.5.0-beta01. Add `preferredItemWidth` to `HorizontalCenteredHeroCarousel` and deprecate `maxItemWidth`, matching the Material3 rename. Add `TimePickerElementColors` props without the `Unselected` infix (for example `clockDialContentColor`) and deprecate the old names. ([#51426](https://github.com/expo/expo/pull/51426) by [@intergalacticspacehighway](https://github.com/intergalacticspacehighway))
+
 ## 58.0.16
 
 ### Patch Changes
